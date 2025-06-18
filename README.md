@@ -1,81 +1,80 @@
-# ShopEase
-A full-stack eCommerce application built using Node.js, Express, MongoDB, and Handlebars for templating. Includes product listings, shopping cart, wishlist, and order management.
-## 📁 Project Structure
-eCommerceFinalProject/
-│
-├── app.js # Main application entry point
-├── products.html # Sample static product page
-├── response.html # Sample order response page
-│
-├── models/ # Mongoose data models
-│ ├── Cart.js
-│ ├── Order.js
-│ ├── Product.js
-│ └── Wishlist.js
-│
-├── routes/ # Express route definitions
-│ ├── cart.js
-│ ├── home.js
-│ ├── orders.js
-│ ├── products.js
-│ └── wishlist.js
-│
-├── public/ # Static assets (CSS, JS)
-│ ├── css/
-│ │ └── style.css
-│ └── js/
-│ └── main.js
-│
-├── views/ # Handlebars templates
-│ ├── home.hbs
-│ ├── 404.hbs
-│ ├── error.hbs
-│ └── cart/
-│ └── index.hbs
-│
-├── helpers/ # Handlebars helper functions
-│ └── hbs-helpers.js
-│
-├── scripts/ # Utility and seeding scripts
-│ └── seed.js
+# 🛍️ ShopEase
 
+A full-stack eCommerce application built using **Node.js**, **Express**, **MongoDB**, and **Handlebars**. It supports product listings, shopping cart, wishlists, and order management — a simple yet complete eCommerce backend.
 
 ---
 
-## 🚀 Features
+## 📁 Project Overview
 
-- Home page with product listings  
-- View individual products  
-- Add to Cart / Wishlist  
-- View and manage Cart  
-- Place Orders  
-- Error pages for invalid routes  
-- Modular routing and clean code separation  
-- Uses Handlebars (`.hbs`) for templating  
+This app supports:
+
+- 🏠 Home page with dynamic product listings  
+- 🛒 Add products to Cart and Wishlist  
+- 📦 Place and view Orders  
+- ❌ 404 and error page handling  
+- 🧱 Modular routing using Express  
+- 🎨 Handlebars templating engine  
+- 📁 MongoDB schema-based models using Mongoose  
 
 ---
 
 ## 🛠️ Tech Stack
 
 - **Backend:** Node.js, Express.js  
-- **Frontend:** HTML, CSS, JavaScript, Handlebars  
+- **Frontend:** HTML, CSS, JavaScript  
+- **Templating Engine:** Handlebars (`.hbs`)  
 - **Database:** MongoDB with Mongoose  
-- **Templating Engine:** Handlebars (`hbs`)  
-- **Utilities:** Custom Handlebars helpers, Seeder scripts  
+- **Tools:** Custom helpers, Seed data script  
 
 ---
 
-## 📦 Setup Instructions
+## 🚀 How to Run the Project Locally
 
 1. **Clone the repository**
    ```bash
-   git clone <repo-url>
-   cd eCommerceFinalProject
+   git clone https://github.com/parthsidana008/ShopEase.git
+   cd ShopEase
+2. Install dependencies
+   npm install
+3. Start the server
+4. Visit http://localhost:9878 in your browse
+
+📁 Key Files & Folders
+app.js – Main application entry point
+
+products.html, response.html – Static sample pages
+
+/models/ – Mongoose schemas (Cart, Order, Product, Wishlist)
+
+/routes/ – Express routes (home, cart, products, wishlist, orders)
+
+/views/ – Handlebars templates (home, 404, error, cart page)
+
+/public/ – Static files (CSS, JS)
+
+/helpers/ – Custom Handlebars helpers
+
+/scripts/seed.js – Script to populate DB with initial data
+
 📝 To-Do
-Add user authentication
+🔐 Add user authentication (login/register)
 
-Enhance UI with Bootstrap or Tailwind
+💳 Integrate payment gateway (e.g., Razorpay/Stripe)
 
-Add payment integration
+🔍 Add product filtering & search
 
-Improve product filtering and search
+🎨 Enhance UI with Tailwind or Bootstrap
+
+📱 Make mobile-friendly & responsive
+
+📄 License
+This project is open-source and available under the MIT License.
+
+📊 Repo Stats
+🌟 Stars: 0
+
+👁️ Watchers: 0
+
+🍴 Forks: 0
+
+📦 Languages: Handlebars, HTML, JavaScript, CSS

@@ -1,0 +1,110 @@
+{{#section 'pageTitle'}}
+    Shopping Cart
+{{/section}}
+
+<section class="section">
+    <div class="section-header">
+        <h2 class="section-title">Shopping Cart</h2>
+    </div>
+    
+    {{#if cartItems.length}}
+        <div class="animate-on-scroll">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each cartItems}}
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center;">
+                                    <img src="{{this.product.image}}" alt="{{this.product.name}}" class="cart-item-image">
+                                    <div style="margin-left: 1rem;">
+                                        <h4>
+                                            <a href="/products/{{this.product._id}}">{{this.product.name}}</a>
+                                        </h4>
+                                        <div class="product-category">{{this.product.category}}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                {{#if this.product.sale}}
+                                    <span class="product-sale-price">${{this.product.salePrice}}</span>
+                                    <span class="product-original-price">${{this.product.price}}</span>
+                                {{else}}
+                                    <span>${{this.product.price}}</span>
+                                {{/if}}
+                            </td>
+                            <td>
+                                <form action="/cart/update/{{this.product._id}}?_method=PUT" method="POST">
+                                    <div class="cart-quantity">
+                                        <button type="button" class="quantity-btn">-</button>
+                                        <input type="number" name="quantity" value="{{this.quantity}}" min="1" class="quantity-input">
+                                        <button type="button" class="quantity-btn">+</button>
+                                        <button type="submit" class="btn btn-outline" style="margin-left: 0.5rem;">
+                                            <i class="fas fa-sync-alt"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </td>
+                            <td>
+                                {{#if this.product.sale}}
+                                    ${{multiply this.product.salePrice this.quantity}}
+                                {{else}}
+                                    ${{multiply this.product.price this.quantity}}
+                                {{/if}}
+                            </td>
+                            <td>
+                                <form action="/cart/remove/{{this.product._id}}?_method=DELETE" method="POST">
+                                    <button type="submit" class="btn btn-outline" style="color: var(--error-color);">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            
+            <div class="cart-summary">
+                <div class="cart-total">
+                    <span>Subtotal:</span>
+                    <span>${{total}}</span>
+                </div>
+                
+                <div class="cart-total">
+                    <span>Shipping:</span>
+                    <span>Free</span>
+                </div>
+                
+                <hr style="margin: 1rem 0; border: none; border-top: 1px solid var(--border-color);">
+                
+                <div class="cart-total" style="font-size: 1.25rem;">
+                    <span>Total:</span>
+                    <span>${{total}}</span>
+                </div>
+                
+                <form action="/cart/checkout" method="POST" style="margin-top: 1.5rem;">
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem;">
+                        Proceed to Checkout
+                    </button>
+                </form>
+            </div>
+        </div>
+    {{else}}
+        <div class="empty-state">
+            <div class="empty-icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <h3>Your cart is empty</h3>
+            <p>It looks like you haven't added any products to your cart yet.</p>
+            <a href="/products" class="btn btn-primary">Continue Shopping</a>
+        </div>
+    {{/if}}
+</section>

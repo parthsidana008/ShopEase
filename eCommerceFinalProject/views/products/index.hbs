@@ -1,0 +1,63 @@
+{{#section 'pageTitle'}}
+    Products
+{{/section}}
+
+<section class="section">
+    <div class="section-header">
+        <h2 class="section-title">Our Products</h2>
+        <p class="section-description">Browse our collection of quality products</p>
+    </div>
+    
+    <div class="categories">
+        <a href="/products" class="category-pill {{#if (eq currentCategory 'all')}}active{{/if}}" data-category="all">All</a>
+        <a href="/products?category=clothing" class="category-pill {{#if (eq currentCategory 'clothing')}}active{{/if}}" data-category="clothing">Clothing</a>
+        <a href="/products?category=footwear" class="category-pill {{#if (eq currentCategory 'footwear')}}active{{/if}}" data-category="footwear">Footwear</a>
+        <a href="/products?category=accessories" class="category-pill {{#if (eq currentCategory 'accessories')}}active{{/if}}" data-category="accessories">Accessories</a>
+        <a href="/products?category=electronics" class="category-pill {{#if (eq currentCategory 'electronics')}}active{{/if}}" data-category="electronics">Electronics</a>
+    </div>
+    
+    {{#if products.length}}
+        <div class="products-grid animate-on-scroll">
+            {{#each products}}
+                <div class="product-card">
+                    <img src="{{this.image}}" alt="{{this.name}}" class="product-image">
+                    <div class="product-info">
+                        <div class="product-category">{{this.category}}</div>
+                        <h3 class="product-title">
+                            <a href="/products/{{this._id}}">{{this.name}}</a>
+                        </h3>
+                        <div class="product-price">
+                            {{#if this.sale}}
+                                <span class="product-sale-price">${{this.salePrice}}</span>
+                                <span class="product-original-price">${{this.price}}</span>
+                            {{else}}
+                                <span>${{this.price}}</span>
+                            {{/if}}
+                        </div>
+                        <div class="product-actions">
+                            <form action="/products/{{this._id}}/add-to-cart" method="POST">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-shopping-cart"></i> Add
+                                </button>
+                            </form>
+                            <form action="/products/{{this._id}}/add-to-wishlist" method="POST">
+                                <button type="submit" class="btn btn-secondary">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    {{else}}
+        <div class="empty-state">
+            <div class="empty-icon">
+                <i class="fas fa-box-open"></i>
+            </div>
+            <h3>No Products Found</h3>
+            <p>We couldn't find any products in this category.</p>
+            <a href="/products" class="btn btn-primary">View All Products</a>
+        </div>
+    {{/if}}
+</section>

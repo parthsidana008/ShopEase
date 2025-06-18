@@ -1,0 +1,23 @@
+<header class="header">
+    <div class="container">
+        <nav class="navbar">
+            <a href="/" class="logo">ShopEase</a>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links">
+                <li><a href="/" class="{{#if isHome}}active{{/if}}">Home</a></li>
+                <li><a href="/products" class="{{#if isProducts}}active{{/if}}">Products</a></li>
+                <li><a href="/wishlist" class="{{#if isWishlist}}active{{/if}}">Wishlist</a></li>
+                <li><a href="/orders" class="{{#if isOrders}}active{{/if}}">Orders</a></li>
+                <li>
+                    <a href="/cart" class="{{#if isCart}}active{{/if}}">
+                        <i class="fas fa-shopping-cart"></i> Cart
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>

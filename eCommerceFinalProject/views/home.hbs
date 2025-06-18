@@ -1,0 +1,145 @@
+{{#section 'pageTitle'}}
+    Home
+{{/section}}
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <h1>Discover Your Style</h1>
+        <p>Shop the latest trends in clothing, footwear, and accessories.</p>
+        <div class="hero-cta">
+            <a href="/products" class="btn btn-primary">Shop Now</a>
+            <a href="#featured" class="btn btn-secondary">Explore</a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products Section -->
+<section id="featured" class="section">
+    <div class="section-header">
+        <h2 class="section-title">Featured Products</h2>
+        <p class="section-description">Check out our newest arrivals and best-sellers.</p>
+    </div>
+    
+    <div class="products-grid animate-on-scroll">
+        {{#each featuredProducts}}
+            <div class="product-card">
+                <img src="{{this.image}}" alt="{{this.name}}" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">{{this.category}}</div>
+                    <h3 class="product-title">
+                        <a href="/products/{{this._id}}">{{this.name}}</a>
+                    </h3>
+                    <div class="product-price">
+                        {{#if this.sale}}
+                            <span class="product-sale-price">${{this.salePrice}}</span>
+                            <span class="product-original-price">${{this.price}}</span>
+                        {{else}}
+                            <span>${{this.price}}</span>
+                        {{/if}}
+                    </div>
+                    <div class="product-actions">
+                        <form action="/products/{{this._id}}/add-to-cart" method="POST">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-shopping-cart"></i> Add
+                            </button>
+                        </form>
+                        <form action="/products/{{this._id}}/add-to-wishlist" method="POST">
+                            <button type="submit" class="btn btn-secondary">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</section>
+
+<!-- Sale Section -->
+<section class="section" style="background-color: var(--secondary-color);">
+    <div class="section-header">
+        <h2 class="section-title">Special Offers</h2>
+        <p class="section-description">Limited time deals you don't want to miss!</p>
+    </div>
+    
+    <div class="products-grid animate-on-scroll">
+        {{#each saleProducts}}
+            <div class="product-card">
+                <img src="{{this.image}}" alt="{{this.name}}" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">{{this.category}}</div>
+                    <h3 class="product-title">
+                        <a href="/products/{{this._id}}">{{this.name}}</a>
+                    </h3>
+                    <div class="product-price">
+                        <span class="product-sale-price">${{this.salePrice}}</span>
+                        <span class="product-original-price">${{this.price}}</span>
+                    </div>
+                    <div class="product-actions">
+                        <form action="/products/{{this._id}}/add-to-cart" method="POST">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-shopping-cart"></i> Add
+                            </button>
+                        </form>
+                        <form action="/products/{{this._id}}/add-to-wishlist" method="POST">
+                            <button type="submit" class="btn btn-secondary">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="section">
+    <div class="section-header">
+        <h2 class="section-title">Shop by Category</h2>
+        <p class="section-description">Browse our collections by category</p>
+    </div>
+    
+    <div class="categories-grid animate-on-scroll" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; text-align: center;">
+        <a href="/products?category=clothing" class="category-block" style="padding: 2rem; background: var(--light-gray); border-radius: 0.5rem; transition: transform 0.3s ease;">
+            <i class="fas fa-tshirt" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+            <h3>Clothing</h3>
+            <p>Trendy outfits for all occasions</p>
+        </a>
+        
+        <a href="/products?category=footwear" class="category-block" style="padding: 2rem; background: var(--light-gray); border-radius: 0.5rem; transition: transform 0.3s ease;">
+            <i class="fas fa-shoe-prints" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+            <h3>Footwear</h3>
+            <p>Comfortable shoes for every step</p>
+        </a>
+        
+        <a href="/products?category=accessories" class="category-block" style="padding: 2rem; background: var(--light-gray); border-radius: 0.5rem; transition: transform 0.3s ease;">
+            <i class="fas fa-glasses" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+            <h3>Accessories</h3>
+            <p>Perfect finishing touches</p>
+        </a>
+        
+        <a href="/products?category=electronics" class="category-block" style="padding: 2rem; background: var(--light-gray); border-radius: 0.5rem; transition: transform 0.3s ease;">
+            <i class="fas fa-laptop" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+            <h3>Electronics</h3>
+            <p>Latest gadgets and tech</p>
+        </a>
+    </div>
+</section>
+
+<script>
+    // Add hover effect to category blocks
+    document.querySelectorAll('.category-block').forEach(block => {
+        block.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px)';
+            this.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
+        });
+        
+        block.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = 'none';
+        });
+    });
+</script>

@@ -1,0 +1,106 @@
+{{#section 'pageTitle'}}
+    Order Details
+{{/section}}
+
+<section class="section">
+    <div style="margin-bottom: 2rem;">
+        <a href="/orders" class="btn btn-outline">
+            <i class="fas fa-arrow-left"></i> Back to Orders
+        </a>
+    </div>
+    
+    <div class="section-header" style="margin-bottom: 2rem;">
+        <h2 class="section-title">Order Details</h2>
+    </div>
+    
+    <div class="order-details">
+        <div class="card" style="border: 1px solid var(--border-color); border-radius: 0.5rem; overflow: hidden; margin-bottom: 2rem;">
+            <div style="padding: 1.5rem; background-color: var(--light-gray); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h3>Order #{{order._id}}</h3>
+                    <p style="color: var(--light-text);">Placed on {{formatDate order.createdAt "MMM DD, YYYY, h:mm A"}}</p>
+                </div>
+                <span class="status-badge status-{{order.status}}">
+                    {{capitalizeFirst order.status}}
+                </span>
+            </div>
+            
+            <div style="padding: 1.5rem;">
+                <table class="order-items-table" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left; padding-bottom: 1rem;">Product</th>
+                            <th style="text-align: right; padding-bottom: 1rem;">Price</th>
+                            <th style="text-align: center; padding-bottom: 1rem;">Quantity</th>
+                            <th style="text-align: right; padding-bottom: 1rem;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each order.items}}
+                            <tr>
+                                <td style="padding: 1rem 0; border-top: 1px solid var(--border-color);">
+                                    {{this.name}}
+                                </td>
+                                <td style="text-align: right; padding: 1rem 0; border-top: 1px solid var(--border-color);">
+                                    ${{this.price}}
+                                </td>
+                                <td style="text-align: center; padding: 1rem 0; border-top: 1px solid var(--border-color);">
+                                    {{this.quantity}}
+                                </td>
+                                <td style="text-align: right; padding: 1rem 0; border-top: 1px solid var(--border-color);">
+                                    ${{multiply this.price this.quantity}}
+                                </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                
+                <div style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>Subtotal:</span>
+                        <span>${{order.totalAmount}}</span>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>Shipping:</span>
+                        <span>Free</span>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; font-weight: 600; font-size: 1.125rem; margin-top: 1rem;">
+                        <span>Total:</span>
+                        <span>${{order.totalAmount}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Order Timeline -->
+        <div class="order-timeline" style="margin-top: 3rem; position: relative;">
+            <h3 style="margin-bottom: 1.5rem;">Order Status</h3>
+            
+            <div style="display: flex; justify-content: space-between; position: relative; margin-bottom: 2rem;">
+                <div style="position: absolute; top: 8px; left: 0; right: 0; height: 4px; background-color: var(--border-color); z-index: 1;"></div>
+                
+                <div class="timeline-step {{#if (eq order.status 'pending')}}active{{/if}}" style="position: relative; z-index: 2; text-align: center; flex: 1;">
+                    <div style="width: 20px; height: 20px; border-radius: 50%; background-color: {{#if (eq order.status 'pending')}}var(--primary-color){{else}}var(--light-gray){{/if}}; margin: 0 auto; border: 2px solid {{#if (eq order.status 'pending')}}var(--primary-color){{else}}var(--border-color){{/if}};"></div>
+                    <div style="margin-top: 0.5rem;">Pending</div>
+                </div>
+                
+                <div class="timeline-step {{#if (or (eq order.status 'processing') (eq order.status 'shipped') (eq order.status 'delivered'))}}active{{/if}}" style="position: relative; z-index: 2; text-align: center; flex: 1;">
+                    <div style="width: 20px; height: 20px; border-radius: 50%; background-color: {{#if (or (eq order.status 'processing') (eq order.status 'shipped') (eq order.status 'delivered'))}}var(--primary-color){{else}}var(--light-gray){{/if}}; margin: 0 auto; border: 2px solid {{#if (or (eq order.status 'processing') (eq order.status 'shipped') (eq order.status 'delivered'))}}var(--primary-color){{else}}var(--border-color){{/if}};"></div>
+                    <div style="margin-top: 0.5rem;">Processing</div>
+                </div>
+                
+                <div class="timeline-step {{#if (or (eq order.status 'shipped') (eq order.status 'delivered'))}}active{{/if}}" style="position: relative; z-index: 2; text-align: center; flex: 1;">
+                    <div style="width: 20px; height: 20px; border-radius: 50%; background-color: {{#if (or (eq order.status 'shipped') (eq order.status 'delivered'))}}var(--primary-color){{else}}var(--light-gray){{/if}}; margin: 0 auto; border: 2px solid {{#if (or (eq order.status 'shipped') (eq order.status 'delivered'))}}var(--primary-color){{else}}var(--border-color){{/if}};"></div>
+                    <div style="margin-top: 0.5rem;">Shipped</div>
+                </div>
+                
+                <div class="timeline-step {{#if (eq order.status 'delivered')}}active{{/if}}" style="position: relative; z-index: 2; text-align: center; flex: 1;">
+                    <div style="width: 20px; height: 20px; border-radius: 50%; background-color: {{#if (eq order.status 'delivered')}}var(--primary-color){{else}}var(--light-gray){{/if}}; margin: 0 auto; border: 2px solid {{#if (eq order.status 'delivered')}}var(--primary-color){{else}}var(--border-color){{/if}};"></div>
+                    <div style="margin-top: 0.5rem;">Delivered</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,64 @@
+{{#section 'pageTitle'}}
+    My Wishlist
+{{/section}}
+
+<section class="section">
+    <div class="section-header">
+        <h2 class="section-title">My Wishlist</h2>
+    </div>
+    
+    {{#if wishlistItems.length}}
+        <div class="animate-on-scroll">
+            <table class="wishlist-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each wishlistItems}}
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center;">
+                                    <img src="{{this.image}}" alt="{{this.name}}" class="wishlist-item-image" style="width: 50px; height: 50px;">
+                                    <div style="margin-left: 1rem;">
+                                        <h4>
+                                            <a href="/products/{{this._id}}">{{this.name}}</a>
+                                        </h4>
+                                        <div class="product-category">{{this.category}}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                {{#if this.sale}}
+                                    <span class="product-sale-price">${{this.salePrice}}</span>
+                                    <span class="product-original-price">${{this.price}}</span>
+                                {{else}}
+                                    <span>${{this.price}}</span>
+                                {{/if}}
+                            </td>
+                            <td>
+                                <form action="/wishlist/remove/{{this._id}}?_method=DELETE" method="POST">
+                                    <button type="submit" class="btn btn-outline" style="color: var(--error-color);">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    {{else}}
+        <div class="empty-state">
+            <div class="empty-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h3>Your wishlist is empty</h3>
+            <p>It looks like you haven't added any products to your wishlist yet.</p>
+            <a href="/products" class="btn btn-primary">Continue Shopping</a>
+        </div>
+    {{/if}}
+</section>

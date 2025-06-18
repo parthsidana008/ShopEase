@@ -1,0 +1,132 @@
+{{#section 'pageTitle'}}
+    {{product.name}}
+{{/section}}
+
+<div class="container">
+    <div class="product-detail">
+        <div class="product-detail-image-container">
+            <img src="{{product.image}}" alt="{{product.name}}" class="product-detail-image">
+        </div>
+        
+        <div class="product-detail-info">
+            <div class="product-category">{{product.category}}</div>
+            <h1>{{product.name}}</h1>
+            
+            <div class="product-price" style="font-size: 1.5rem; margin: 1rem 0;">
+                {{#if product.sale}}
+                    <span class="product-sale-price">${{product.salePrice}}</span>
+                    <span class="product-original-price">${{product.price}}</span>
+                {{else}}
+                    <span>${{product.price}}</span>
+                {{/if}}
+            </div>
+            
+            <div class="product-description">
+                <p>{{product.description}}</p>
+            </div>
+            
+            <div class="product-meta">
+                <div class="product-meta-item">
+                    <div class="meta-label">Availability:</div>
+                    <div>
+                        {{#if product.inStock}}
+                            <span style="color: var(--success-color);">
+                                <i class="fas fa-check-circle"></i> In Stock
+                            </span>
+                        {{else}}
+                            <span style="color: var(--error-color);">
+                                <i class="fas fa-times-circle"></i> Out of Stock
+                            </span>
+                        {{/if}}
+                    </div>
+                </div>
+                
+                <div class="product-meta-item">
+                    <div class="meta-label">Category:</div>
+                    <div>
+                        <a href="/products?category={{product.category}}">{{product.category}}</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-actions" style="margin-top: 2rem;">
+                <form action="/products/{{product._id}}/add-to-cart" method="POST" style="display: inline-block; margin-right: 1rem;">
+                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <label for="quantity" style="margin-right: 1rem;">Quantity:</label>
+                        <div class="cart-quantity">
+                            <button type="button" class="quantity-btn">-</button>
+                            <input type="number" name="quantity" id="quantity" value="1" min="1" class="quantity-input">
+                            <button type="button" class="quantity-btn">+</button>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="padding: 0.75rem 2rem;">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                </form>
+                
+                <form action="/products/{{product._id}}/add-to-wishlist" method="POST" style="display: inline-block;">
+                    <button type="submit" class="btn btn-secondary">
+                        <i class="fas fa-heart"></i> Add to Wishlist
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    {{#if relatedProducts.length}}
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Related Products</h2>
+            </div>
+            
+            <div class="products-grid">
+                {{#each relatedProducts}}
+                    <div class="product-card">
+                        <img src="{{this.image}}" alt="{{this.name}}" class="product-image">
+                        <div class="product-info">
+                            <div class="product-category">{{this.category}}</div>
+                            <h3 class="product-title">
+                                <a href="/products/{{this._id}}">{{this.name}}</a>
+                            </h3>
+                            <div class="product-price">
+                                {{#if this.sale}}
+                                    <span class="product-sale-price">${{this.salePrice}}</span>
+                                    <span class="product-original-price">${{this.price}}</span>
+                                {{else}}
+                                    <span>${{this.price}}</span>
+                                {{/if}}
+                            </div>
+                            <div class="product-actions">
+                                <form action="/products/{{this._id}}/add-to-cart" method="POST">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-shopping-cart"></i> Add
+                                    </button>
+                                </form>
+                                <form action="/products/{{this._id}}/add-to-wishlist" method="POST">
+                                    <button type="submit" class="btn btn-secondary">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </section>
+    {{/if}}
+</div>
+
+<script>
+    document.querySelectorAll('.quantity-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const input = this.parentElement.querySelector('.quantity-input');
+            let value = parseInt(input.value);
+            if (this.textContent === '+') {
+                input.value = value + 1;
+            } else if (value > 1) {
+                input.value = value - 1;
+            }
+        });
+    });
+</script>

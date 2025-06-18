@@ -39,7 +39,7 @@ This app supports:
 3. Start the server
 4. Visit http://localhost:9878 in your browse
 
-📁 Key Files & Folders
+---📁 Key Files & Folders
 app.js – Main application entry point
 
 products.html, response.html – Static sample pages
@@ -56,7 +56,7 @@ products.html, response.html – Static sample pages
 
 /scripts/seed.js – Script to populate DB with initial data
 
-📝 To-Do
+---📝 To-Do
 🔐 Add user authentication (login/register)
 
 💳 Integrate payment gateway (e.g., Razorpay/Stripe)
@@ -67,14 +67,8 @@ products.html, response.html – Static sample pages
 
 📱 Make mobile-friendly & responsive
 
-📄 License
+---📄 License
 This project is open-source and available under the MIT License.
 
-📊 Repo Stats
-🌟 Stars: 0
 
-👁️ Watchers: 0
-
-🍴 Forks: 0
-
-📦 Languages: Handlebars, HTML, JavaScript, CSS
+---📦 Languages: Handlebars, HTML, JavaScript, CSS
